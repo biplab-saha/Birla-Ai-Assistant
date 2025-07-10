@@ -3,11 +3,11 @@ from rich import print
 from dotenv import dotenv_values
 import os  # ✅ Added for fallback if dotenv fails
 
-# ✅ Fix: Ensure the .env path is correct and fallback to environment if needed
+
 env_vars = dotenv_values("../.env")
 CohereAPIKey = env_vars.get('CohereAPIKey') or os.getenv("CohereAPIKey")
 
-# ✅ Fix: Raise an error if key not found
+
 if not CohereAPIKey:
     raise ValueError("❌ ERROR: 'CohereAPIKey' not found in .env or environment variables.")
 
@@ -85,13 +85,13 @@ def FirstLayerDMM(prompt: str = "text"):
 
     response = temp
 
-    # ✅ Fix: Avoid infinite recursion
+    
     if any("(query)" in r for r in response):
         return [f"general ({prompt})"]
     else:
         return response
 
 
-if __name__ == "__main__":  # ✅ Fix: correct main check
+if __name__ == "__main__":  
     while True:
         print(FirstLayerDMM(input(">>> ")))
